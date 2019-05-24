@@ -1,7 +1,8 @@
-﻿using Core.IO;
-using TripTracker.IO;
+﻿using Core;
+using Core.IO;
+using Core.Parsing;
 using System.Linq;
-using Core;
+using TripTracker.IO;
 
 namespace TripTracker
 {
@@ -17,7 +18,7 @@ namespace TripTracker
             if (files.Exists(fileName))
             {
                 string[] lines = files.ReadAllLines(fileName);
-                var tracker = new Tracker(console);
+                var tracker = new Tracker(console, new InputParser());
                 tracker.ProcessAllInput(lines);
             }
         }
