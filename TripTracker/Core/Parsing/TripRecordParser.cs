@@ -5,13 +5,24 @@ namespace Core.Parsing
 {
     public class TripRecordParser : IRecordParser
     {
+        const decimal MAX_SPEED = 100m;
+        const decimal MIN_SPEED = 5m;
         public string Identifier => "Trip";
 
         public DrivingRecord ParseRecord(string line)
         {
             string[] pieces = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             var record = CreateDrivingRecord(pieces);
-            return record;
+            if (WithinSpeedLimit(record))
+            {
+                return record;
+            }
+            return DrivingRecord.Empty;
+        }
+
+        private bool WithinSpeedLimit(DrivingRecord record)
+        {
+            return record.Mph <= MAX_SPEED && record.Mph >= MIN_SPEED;
         }
 
         private static DrivingRecord CreateDrivingRecord(string[] pieces)
