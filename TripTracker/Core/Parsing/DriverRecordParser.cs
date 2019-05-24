@@ -1,4 +1,6 @@
 ﻿using Core.Model;
+using System;
+using System.Linq;
 
 namespace Core.Parsing
 {
@@ -6,9 +8,14 @@ namespace Core.Parsing
     {
         public string Identifier => "Driver";
 
-        public Record ParseRecord(string line)
+        public DrivingRecord ParseRecord(string line)
         {
-            throw new System.NotImplementedException();
+            string name = line.Split(' ', StringSplitOptions.RemoveEmptyEntries).ElementAtOrDefault(1);
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return DrivingRecord.Empty;
+            }
+            return new DrivingRecord(name, true);
         }
     }
 }

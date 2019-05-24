@@ -6,7 +6,7 @@ namespace Core.Parsing
     {
         public string Identifier => "Trip";
 
-        public Record ParseRecord(string line)
+        public DrivingRecord ParseRecord(string line)
         {
             throw new System.NotImplementedException();
         }
