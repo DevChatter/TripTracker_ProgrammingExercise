@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.IO;
+using System;
+using TripTracker.IO;
 
 namespace TripTracker
 {
@@ -6,7 +8,9 @@ namespace TripTracker
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            IConsole console = new SystemConsole();
+
+            console.WriteLine("Hello World!");
         }
     }
 
