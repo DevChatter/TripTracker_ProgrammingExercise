@@ -1,4 +1,6 @@
-﻿using TripTracker;
+﻿using FluentAssertions;
+using System.Collections.Generic;
+using TripTracker;
 using UnitTests.Fakes;
 using Xunit;
 
@@ -13,13 +15,29 @@ namespace UnitTests
 
             Program.Main(new[] { "fileName" });
 
-            Assert.Single(fakeConsole.WrittenLines);
+            fakeConsole.WrittenLines.Should().Equal(expectedOutput);
         }
+
+        private const string sampleInput =
+@"//Driver Sarah
+//Driver Brendan
+//Driver Michael
+//Trip Sarah 09:15 09:45 17.3
+//Trip Sarah 06:22 06:42 21.8
+//Trip Brendan 12:11 13:26 42.0";
+
+        private readonly List<string> expectedOutput = new List<string>
+        {
+            "Brendan: 42 miles @ 34 mph",
+            "Sarah: 39 miles @ 47 mph",
+            "Michael: 0 miles"
+        };
 
         private static (FakeConsole, FakeFiles) SetUpFakes()
         {
             FakeConsole fakeConsole = new FakeConsole();
             FakeFiles fakeFiles = new FakeFiles { ExistsReturns = true };
+            fakeFiles.TextInFile = sampleInput;
             Program.console = fakeConsole;
             Program.files = fakeFiles;
             return (fakeConsole, fakeFiles);
