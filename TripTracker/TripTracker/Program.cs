@@ -1,6 +1,7 @@
 ﻿using Core.IO;
 using TripTracker.IO;
 using System.Linq;
+using Core;
 
 namespace TripTracker
 {
@@ -16,10 +17,8 @@ namespace TripTracker
             if (files.Exists(fileName))
             {
                 string[] lines = files.ReadAllLines(fileName);
-                foreach (string line in lines)
-                {
-                    console.WriteLine(line);
-                }
+                var tracker = new Tracker(console);
+                tracker.ProcessAllInput(lines);
             }
         }
     }
