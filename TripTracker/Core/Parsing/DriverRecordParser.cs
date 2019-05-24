@@ -2,9 +2,9 @@
 
 namespace Core.Parsing
 {
-    public class DriveRecordParser : IRecordParser
+    public class DriverRecordParser : IRecordParser
     {
-        public string Identifier => "Drive";
+        public string Identifier => "Driver";
 
         public Record ParseRecord(string line)
         {
