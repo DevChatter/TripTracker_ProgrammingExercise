@@ -18,7 +18,8 @@ namespace TripTracker
             if (files.Exists(fileName))
             {
                 string[] lines = files.ReadAllLines(fileName);
-                var tracker = new Tracker(console, new InputParser());
+                InputParser inputParser = new InputParser(new DriverRecordParser(), new TripRecordParser());
+                var tracker = new Tracker(console, inputParser);
                 tracker.ProcessAllInput(lines);
             }
         }

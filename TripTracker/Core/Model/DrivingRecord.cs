@@ -25,6 +25,12 @@ namespace Core.Model
             IsRegistration = isRegistration;
         }
 
+        public void AddTrip(DrivingRecord record)
+        {
+            Time += record.Time;
+            Miles += record.Miles;
+        }
+
         public DrivingRecord(string name, TimeSpan time, decimal miles)
         {
             Name = name;

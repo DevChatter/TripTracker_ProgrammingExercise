@@ -15,16 +15,19 @@ namespace UnitTests
 
             Program.Main(new[] { "fileName" });
 
-            fakeConsole.WrittenLines.Should().Equal(expectedOutput);
+            for (int i = 0; i < expectedOutput.Count; i++)
+            {
+                fakeConsole.WrittenLines[i].Should().Be(expectedOutput[i]);
+            }
         }
 
         private const string sampleInput =
-@"//Driver Sarah
-//Driver Brendan
-//Driver Michael
-//Trip Sarah 09:15 09:45 17.3
-//Trip Sarah 06:22 06:42 21.8
-//Trip Brendan 12:11 13:26 42.0";
+@"Driver Sarah
+Driver Brendan
+Driver Michael
+Trip Sarah 09:15 09:45 17.3
+Trip Sarah 06:22 06:42 21.8
+Trip Brendan 12:11 13:26 42.0";
 
         private readonly List<string> expectedOutput = new List<string>
         {
@@ -36,8 +39,11 @@ namespace UnitTests
         private static (FakeConsole, FakeFiles) SetUpFakes()
         {
             FakeConsole fakeConsole = new FakeConsole();
-            FakeFiles fakeFiles = new FakeFiles { ExistsReturns = true };
-            fakeFiles.TextInFile = sampleInput;
+            FakeFiles fakeFiles = new FakeFiles
+            {
+                ExistsReturns = true,
+                TextInFile = sampleInput
+            };
             Program.console = fakeConsole;
             Program.files = fakeFiles;
             return (fakeConsole, fakeFiles);

@@ -1,4 +1,6 @@
-﻿using Core.IO;
+﻿using System;
+using Core.IO;
+using Core.Model;
 using Core.Parsing;
 
 namespace Core
@@ -16,12 +18,18 @@ namespace Core
 
         public void ProcessAllInput(string[] allLines)
         {
-            var theThingItReturns = inputParser.ParseAll(allLines);
+            var report = inputParser.ParseAll(allLines);
 
-            foreach (var record in theThingItReturns.Records)
+            foreach (var record in report.Records)
             {
-                console.WriteLine(record.ToString());
+                PrintRecord(record.Name, record.Miles.RoundToInt(), record.Mph.RoundToInt());
             }
+        }
+
+        private void PrintRecord(string name, int miles, int mph)
+        {
+            string mphPart = miles > 0 ? $" @ {mph} mph" : "";
+            console.WriteLine($"{name}: {miles} miles{mphPart}");
         }
     }
 }

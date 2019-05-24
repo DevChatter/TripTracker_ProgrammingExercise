@@ -1,5 +1,5 @@
 ﻿using Core.Model;
-using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Core.Parsing
@@ -15,7 +15,18 @@ namespace Core.Parsing
 
         public Report ParseAll(IList<string> lines)
         {
-            throw new NotImplementedException();
+            var report = new Report();
+
+            foreach (string line in lines)
+            {
+                var parser = RecordParsers.SingleOrDefault(p => p.CanParse(line));
+
+                var record = parser?.ParseRecord(line.Trim()) ?? DrivingRecord.Empty;
+
+                report.ProcessRecord(record);
+            }
+
+            return report;
         }
     }
 }

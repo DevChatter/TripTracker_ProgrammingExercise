@@ -10,5 +10,8 @@ namespace Core
 
         public static DateTime ParseTime(this string text)
             => DateTime.ParseExact(text, "HH:mm", CultureInfo.InvariantCulture);
+
+        public static int RoundToInt(this decimal number)
+            => (int)Math.Round(number, MidpointRounding.AwayFromZero);
     }
 }
