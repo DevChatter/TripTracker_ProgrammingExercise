@@ -1,14 +1,15 @@
 ﻿using Core.IO;
-using System;
 using TripTracker.IO;
 
 namespace TripTracker
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static IFileSystem files { get; set; } = new SystemFiles();
+        public static IConsole console { get; set; } = new SystemConsole();
+
+        public static void Main(string[] args)
         {
-            IConsole console = new SystemConsole();
 
             console.WriteLine("Hello World!");
         }
